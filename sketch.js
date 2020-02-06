@@ -24,6 +24,10 @@ function setup() {
   submitButton = createButton('submit');
   submitButton.mousePressed(submitScore);
 
+  changePageButton = createButton('View mosaic');
+  changePageButton.mousePressed(changePage);
+
+
   // convertButton = createButton('convert');
   // convertButton.mousePressed(convertCanvasToImage);
 
@@ -85,6 +89,10 @@ console.log(data);
 function errData(err){
   console.log('Error');
   console.log(err)
+}
+
+function changePage() {
+window.open('index2.html', '_self');
 }
 
 // function convertCanvasToImage(canvas) {

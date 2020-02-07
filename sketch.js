@@ -18,9 +18,6 @@ function setup() {
   canvas = createCanvas(50, 50);
   canvas.id('canvas');
 
-  pic_container = createCanvas(50, 50);
-  pic_container.id('pic_container');
-
   capture = createCapture(VIDEO);
   capture.class('capture_class');
   capture.size(windowWidth, windowWidth);

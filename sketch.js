@@ -6,18 +6,28 @@ var storage;
 var canvas;
 var capture;
 
-function preload(){
+var pic_container;
+
+function preload() {
   // put preload code here
 }
 
 function setup() {
   //camera
-    canvas = createCanvas(150,100);
-    canvas.id('canvas');
+
+  canvas = createCanvas(50, 50);
+  canvas.id('canvas');
+
+  pic_container = createCanvas(50, 50);
+  pic_container.id('pic_container');
+
   capture = createCapture(VIDEO);
-  capture.size(700,400);
+  capture.class('capture_class');
+  capture.size(windowWidth, windowWidth);
   capture.id('capture');
   // capture.hide();
+
+  imageMode(CENTER);
 
   //scores
   initialInput = createInput('initials');
@@ -50,49 +60,60 @@ function setup() {
   var storageref = database.ref('photos');
   storageref.on('value', errData);
 
-//------------------------------------------------
+  //------------------------------------------------
+
+
+
 
 }
 
 function draw() {
+  stroke('black');
+  noFill();
+  rect(0, 0, width, height);
 
   // put drawing code here
 }
 
 
 
-function submitScore(){
-  var pic = image(capture, 0, 0,150, 100);
+function submitScore() {
 
-// console.log(data);
+  var pic = image(capture, width/2, height/2, 70, 50);
 
-var canvas = document.getElementById('canvas');
-var dataURL = canvas.toDataURL('image/png');
-// console.log(dataURL);
+  // console.log(data);
 
-// var new_img = createImg(dataURL);
+  var canvas = document.getElementById('canvas');
+  var dataURL = canvas.toDataURL('image/png', 0.1);
+  // console.log(dataURL);
 
-var data = {
-initials: initialInput.value(),
-photo_img: dataURL
+  // var new_img = createImg(dataURL);
+
+  var data = {
+    initials: initialInput.value(),
+    photo_img: dataURL
+  }
+
+  var storageref = database.ref('photos');
+  storageref.push(data);
+
+  // console.log(data);
+
+  //---------------------------------------------------
+
+
+
 }
 
-var storageref = database.ref('photos');
-storageref.push(data);
-
-console.log(data);
-
-}
 
 
-
-function errData(err){
+function errData(err) {
   console.log('Error');
   console.log(err)
 }
 
 function changePage() {
-window.open('index2.html', '_self');
+  window.open('index2.html', '_self');
 }
 
 // function convertCanvasToImage(canvas) {

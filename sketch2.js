@@ -59,7 +59,7 @@ function gotData(data) {
 
 var photos = data.val();
 var keys = Object.keys(photos);
-console.log(keys);
+console.log(keys.length);
 for (let i = 0; i < keys.length; i++){
   let k = keys[i];
   let initials = photos[k].initials;

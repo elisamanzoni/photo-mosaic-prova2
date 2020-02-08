@@ -6,6 +6,8 @@ var storage;
 var canvas;
 var capture;
 
+var spinner;
+
 function preload(){
   // put preload code here
 }
@@ -38,6 +40,9 @@ function setup() {
   var ref = database.ref('photos');
   ref.once('value', gotData, errData);
 
+  console.log('spinner');
+
+
 
 
 //------------------------------------------------
@@ -67,13 +72,29 @@ for (let j = 0; j < keys.length; j++){
   let initials = photos[k].initials;
   let photo_img = photos[k].photo_img;
 
-  var li = createElement('p', initials);
-  li.class('photolisting');
-  li.parent('photolist');
+  // var li = createElement('p', initials);
+  // li.class('photolisting');
+  // li.parent('photolist');
 
   var li_img = createImg(photo_img);
-  li_img.class('photolisting');
-  li_img.parent('photolist');
+  // li_img.class('photolisting');
+  // li_img.parent('photolist');
+
+
+ var li_img = loadImage(photo_img);
+ console.log(photo_img);
+
+
+ if (j == keys.length-1){
+   setTimeout(prova_funzione, 10);
+   spinner = select('#spinner');
+   spinner.hide();
+ }
+
+
+ console.log(li_img)
+
+
   }
 
   // console.log(photo_img);
@@ -82,4 +103,8 @@ for (let j = 0; j < keys.length; j++){
 function errData(err){
   console.log('Error');
   console.log(err)
+}
+
+function prova_funzione(){
+  console.log('success!');
 }

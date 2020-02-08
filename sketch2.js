@@ -82,7 +82,6 @@ for (let j = 0; j < keys.length; j++){
 
 
  var li_img = loadImage(photo_img);
- console.log(photo_img);
 
 
  if (j == keys.length-1){

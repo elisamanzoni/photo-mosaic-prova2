@@ -15,7 +15,7 @@ function preload() {
 function setup() {
   //camera
 
-  canvas = createCanvas(50, 50);
+  canvas = createCanvas(20, 20);
   canvas.id('canvas');
 
   capture = createCapture(VIDEO);
@@ -76,7 +76,7 @@ function draw() {
 
 function submitScore() {
 
-  var pic = image(capture, width/2, height/2, 70, 50);
+  var pic = image(capture, width/2, height/2, 30, 20);
 
   // console.log(data);
 

@@ -54,8 +54,8 @@ function setup() {
   firebase.initializeApp(firebaseConfig);
   database = firebase.database();
 
-  var storageref = database.ref('photos');
-  storageref.on('value', errData);
+  var ref = database.ref('photos');
+  ref.on('value', errData);
 
   //------------------------------------------------
 
@@ -91,8 +91,8 @@ function submitScore() {
     photo_img: dataURL
   }
 
-  var storageref = database.ref('photos');
-  storageref.push(data);
+  var ref = database.ref('photos');
+  ref.push(data);
 
   // console.log(data);
 

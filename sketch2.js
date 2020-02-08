@@ -35,8 +35,10 @@ function setup() {
   firebase.initializeApp(firebaseConfig);
   database = firebase.database();
 
-  var storageref = database.ref('photos');
-  storageref.once('value', gotData, errData);
+  var ref = database.ref('photos');
+  ref.once('value', gotData, errData);
+
+
 
 //------------------------------------------------
 
@@ -60,8 +62,8 @@ function gotData(data) {
 var photos = data.val();
 var keys = Object.keys(photos);
 console.log(keys.length);
-for (let i = 0; i < keys.length; i++){
-  let k = keys[i];
+for (let j = 0; j < keys.length; j++){
+  let k = keys[j];
   let initials = photos[k].initials;
   let photo_img = photos[k].photo_img;
 

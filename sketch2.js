@@ -69,8 +69,9 @@ var keys = Object.keys(photos);
 console.log(keys.length);
 for (let j = 0; j < keys.length; j++){
   let k = keys[j];
-  let initials = photos[k].initials;
   let photo_img = photos[k].photo_img;
+
+  console.log(keys.length);
 
   // var li = createElement('p', initials);
   // li.class('photolisting');

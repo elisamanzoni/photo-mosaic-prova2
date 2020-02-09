@@ -7,32 +7,50 @@ var canvas;
 var capture;
 
 var pic_container;
+var photoButton;
+var retakePhotoButton;
+
+var new_img
+var new_img_small;
+
+var foto_fatta;
 
 function preload() {
   // put preload code here
 }
 
 function setup() {
+
+  foto_fatta == false;
   //camera
 
-  canvas = createCanvas(20, 20);
+  canvas = createCanvas(400, 400);
   canvas.id('canvas');
 
   capture = createCapture(VIDEO);
-  capture.class('capture_class');
-  capture.size(windowWidth, windowWidth);
   capture.id('capture');
-  // capture.hide();
+  capture.hide();
 
   imageMode(CENTER);
 
   //scores
-  initialInput = createInput('initials');
-  submitButton = createButton('submit');
-  submitButton.mousePressed(submitScore);
+  submitButton = createButton('Confirm');
+  submitButton.mousePressed(confirm);
+  submitButton.class('submitButton');
+  submitButton.hide();
+
+  photoButton = createButton('Take photo');
+  photoButton.mousePressed(takePhoto);
+  photoButton.class('submitButton');
+
+  retakePhotoButton = createButton('Retake photo');
+  retakePhotoButton.mousePressed(reTakePhoto);
+  retakePhotoButton.class('submitButton');
+  retakePhotoButton.hide();
 
   changePageButton = createButton('View mosaic');
   changePageButton.mousePressed(changePage);
+  changePageButton.class('submitButton');
 
 
   // convertButton = createButton('convert');
@@ -69,38 +87,65 @@ function draw() {
   noFill();
   rect(0, 0, width, height);
 
+  if (foto_fatta == true){
+    image(capture, width/2, height/2, capture.width/30, capture.height/30);
+  }
+  else {
+    var pic = image(capture, width/2, height/2, capture.width, capture.height);
+  }
+
+
   // put drawing code here
 }
 
+function takePhoto() {
+
+  foto_fatta = false;
+
+  submitButton.show();
+  retakePhotoButton.show();
+  photoButton.hide();
+
+  var canvas1 = document.getElementById('canvas');
+  var dataURLbig = canvas1.toDataURL('image/png', 0.1);
+  console.log(dataURLbig);
+
+  noLoop();
+
+}
 
 
-function submitScore() {
+function reTakePhoto(){
 
-  var pic = image(capture, width/2, height/2, 30, 20);
+  foto_fatta=false;
+  resizeCanvas(400, 400);
+  submitButton.hide();
+  retakePhotoButton.hide();
+  photoButton.show();
+  loop();
+}
 
-  // console.log(data);
 
-  var canvas = document.getElementById('canvas');
-  var dataURL = canvas.toDataURL('image/png', 0.1);
-  // console.log(dataURL);
+function confirm(){
 
-  // var new_img = createImg(dataURL);
+  foto_fatta = true;
+  resizeCanvas(15,15);
+  var canvas2 = document.getElementById('canvas');
+  var dataURL = canvas2.toDataURL('image/png', 0.1);
+  console.log('invio');
+
 
   var data = {
-    initials: initialInput.value(),
     photo_img: dataURL
   }
 
+     console.log(dataURL);
+
   var ref = database.ref('photos');
   ref.push(data);
-
-  // console.log(data);
-
-  //---------------------------------------------------
-
-
-
+ window.open('index2.html', '_self');
 }
+
 
 
 
@@ -112,9 +157,3 @@ function errData(err) {
 function changePage() {
   window.open('index2.html', '_self');
 }
-
-// function convertCanvasToImage(canvas) {
-// 	var image = new Image();
-// 	image.src = canvas.toDataURL("image/png");
-// 	return image;
-// }
